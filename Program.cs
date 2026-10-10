@@ -1,5 +1,6 @@
 ﻿
 
+using System.Data;
 using System.Data.SqlClient;
 
 string cennectionstring = "Server=(localdb)\\MSSQLLocalDB ; Database= StudentADONET_DB ; Trusted_Connection=True; TrustServerCertificate=True;";
@@ -10,41 +11,60 @@ connection.Open();
 
 string sql = "SELECT * FROM StudentsADO";
 
-using SqlCommand sqlCommand = new SqlCommand(sql , connection);
 
-SqlDataReader reader = sqlCommand.ExecuteReader();
+SqlDataAdapter adapter = new SqlDataAdapter(sql, connection);
 
-if (reader.HasRows) // yeh check kar rha hai iske pass row hai kya
+DataTable table = new DataTable();
+
+adapter.Fill(table);
+
+foreach (DataRow row in table.Rows)
 {
-    while (reader.Read())
-    {
-        Console.WriteLine("Id: "+ Convert.ToInt32( reader["id"]));
-        Console.WriteLine("---------------------------------------");
-        Console.WriteLine("Age: "+ Convert.ToInt32( reader["age"]));
-        Console.WriteLine("---------------------------------------");
-        Console.WriteLine("Name: "+ reader["Name"].ToString());
-        Console.WriteLine("---------------------------------------");
-        Console.WriteLine("Mobile: "+ reader["Mobile"].ToString()); 
-
-
-        Console.WriteLine("*****************************************");
-    }
+    Console.WriteLine("Id: " + row["id"]);
+    Console.WriteLine("Name : " + row["Name"]);
 }
 
 
 
 
-//SqlDataAdapter adapter = new SqlDataAdapter(sql , connection );
 
-//DataTable table = new DataTable();
 
-//adapter.Fill( table );
 
-//foreach(DataRow row in table.Rows)
+
+
+
+
+
+
+
+
+
+
+//using SqlCommand sqlCommand = new SqlCommand(sql , connection);
+
+//SqlDataReader reader = sqlCommand.ExecuteReader();
+
+//if (reader.HasRows) // yeh check kar rha hai iske pass row hai kya
 //{
-//    Console.WriteLine("Id: " + row["id"]  );
-//    Console.WriteLine("Name : " + row["Name"]  );
+//    while (reader.Read())
+//    {
+//        Console.WriteLine("Id: "+ Convert.ToInt32( reader["id"]));
+//        Console.WriteLine("---------------------------------------");
+//        Console.WriteLine("Age: "+ Convert.ToInt32( reader["age"]));
+//        Console.WriteLine("---------------------------------------");
+//        Console.WriteLine("Name: "+ reader["Name"].ToString());
+//        Console.WriteLine("---------------------------------------");
+//        Console.WriteLine("Mobile: "+ reader["Mobile"].ToString()); 
+
+
+//        Console.WriteLine("*****************************************");
+//    }
 //}
+
+
+
+
+
 
 
 // changes
