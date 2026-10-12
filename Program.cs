@@ -1,16 +1,12 @@
 ﻿
 
-using System.Data;
-using System.Data.SqlClient;
 
-Console.WriteLine("Enter Name");
-string name = Console.ReadLine();
+using Microsoft.Data.SqlClient;
 
-Console.WriteLine("Enter Age");
-int age = Convert.ToInt32 (Console.ReadLine());
 
-Console.WriteLine("Enter Mobile Number");
-string mobile = Console.ReadLine();
+Console.WriteLine("Enter Student id");
+int id = Convert.ToInt32 (Console.ReadLine());
+
 
 string cennectionstring = "Server=(localdb)\\MSSQLLocalDB ; Database= StudentADONET_DB ; Trusted_Connection=True; TrustServerCertificate=True;";
 
@@ -18,7 +14,7 @@ using SqlConnection connection = new SqlConnection(cennectionstring);
 
 connection.Open();
 
-string sql = $"INSERT INTO StudentsADO (Name, Age, Mobile) VALUES('{name}', {age}, '{mobile}')";
+string sql = $"DELETE FROM StudentsADO WHERE Id = {id} ";
 
 using SqlCommand sqlCommand = new SqlCommand(sql, connection);
 
@@ -26,12 +22,12 @@ int rowAffected = sqlCommand.ExecuteNonQuery();
 
 if(rowAffected > 0)
 {
-    Console.WriteLine($"{rowAffected} Row Affected");
-    Console.WriteLine("Done");
+    Console.WriteLine($"{rowAffected} Row Deleted");
+    Console.WriteLine("Delete Successful");
 }
 else
 {
-    Console.WriteLine($"{rowAffected} Row Affected");
+    Console.WriteLine("Student ID Not Found");
     Console.WriteLine("Error");
 }
 
